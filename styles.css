@@ -1,6 +1,7 @@
 body{
     background: #748aecfd;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -47,8 +48,12 @@ button:hover{
     font-size: 60px;
     margin-top: 30px;
 }
+#city-name {
+    font-size: 30px;
+}
 #weather-info{
-    font-size: 20px;
+    font-size: 30px;
+    margin-bottom: 10px;
 }
 #weather-icon {
     width: 100px;
@@ -57,3 +62,7 @@ button:hover{
     margin-bottom: -20px;
     display: none;
 }
+#fav {
+    display: none;
+}
+

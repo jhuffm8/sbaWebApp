@@ -4,42 +4,50 @@ const cityInput = document.getElementById('city');
 const tempDiv = document.getElementById('temp-div');
 const weatherInfo = document.getElementById('weather-info');
 const weatherIcon = document.getElementById('weather-icon');
+const nameCity = document.getElementById('city-name');
+const favIcon = document.getElementById('fav')
 
 form.addEventListener('submit', getWeather)
 
-async function getWeather(event) {
-    event.preventDefault()
-    const city = cityInput.value;
-    if(city === ""){
-        alert("Need to enter location");
-        return
-    } else{
-    const response = await fetch(` http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`)
-    const data = await response.json()
-    const iconUrl = data.current.condition.icon;
-    const description = data.current.condition.text;
-
-    // weatherData.innerHTML = `<h2>${data.location.name}</h2>
-    // <p>Local Time: ${data.location.localtime}</p>
-    // <p>Tempature in Fahrenheit: ${data.current.temp_f}</p>
-    // <p>Tempature in Celsius: ${data.current.temp_c}</p>
-    // <p>Condition: ${data.current.condition.text}</p>
-    // `
-    tempDiv.innerHTML = `<p>${data.current.temp_f}</p>`
-    weatherInfo.innerHTML = `<p>${data.current.condition.text}</p>`
-    weatherIcon.src = `https:${iconUrl}`;
-    showImage();
-
-
-
-
-
-    console.log(data)
-    // console.log(iconUrl)
-    }
-}
-// getWeather();
-
 function showImage(){
     weatherIcon.style.display = 'block'
+    favIcon.style.display = 'inline'
+
 }
+
+function getWeather(event){
+    event.preventDefault();
+    const city = cityInput.value;
+    const weatherBycity = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
+    if(!city){
+        alert("Enter a major city!")
+        return;
+    }
+    fetch(weatherBycity)
+        .then(response => response.json())
+        .then(data => {
+            displayWeather(data)
+            console.log(data)
+        })
+        .catch(error => {
+            console.log("Eroor:" , error);
+            alert("Error! Please try again!")
+        })
+
+        showImage();    
+
+}
+
+function displayWeather(data){
+    const temp = Math.round(data.current.temp_f);
+    const iconUrl =  data.current.condition.icon;
+    const description = data.current.condition.text;
+    const cityName = data.location.name
+
+    weatherIcon.src = `https:${iconUrl}`;
+    weatherInfo.innerHTML = `<p>${description}</p>`;
+    tempDiv.innerHTML = `<p>${temp}°F</p>`;
+    nameCity.innerHTML = `<p>${cityName}</p>`
+    // showImage();
+}
+

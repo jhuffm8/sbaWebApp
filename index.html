@@ -9,18 +9,25 @@
 
   </head>
   <body>
-    <div id="weather-container">
-    <h1>Weather App</h1>
-    <form id="weather-form">
-      <input type="text" id="city" placeholder="Enter City" style="text-align: center;">
-      <button type="submit">Get Weather</button>
-    </form>
-      <img id="weather-icon" alt="Weather Icon">
-      <div id="temp-div"></div>
-      <div id="weather-info"></div>
-      <div id="hourly-forecast"></div>
   
-</div>
+    <div id="weather-container">
+        <h1>Weather App</h1>
+        <form id="weather-form">
+        <input type="text" id="city" placeholder="Enter City" style="text-align: center;">
+        <button type="submit">Get Weather</button>
+        </form>
+        <div id="city-name"></div>
+        <button id="fav">Add to Favs</button>
+        <img id="weather-icon" alt="Weather Icon">
+        <div id="temp-div"></div>
+        <div id="weather-info"></div>
+        <div id="hourly-forecast"></div>
+    </div>
+    <div class="sidenav">
+        <button>Favorites</button>
+
+
+    </div>
     <script src="app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </body>
