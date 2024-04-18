@@ -6,16 +6,19 @@ const tempDiv = document.getElementById('temp-div');
 const weatherInfo = document.getElementById('weather-info');
 const weatherIcon = document.getElementById('weather-icon');
 const nameCity = document.getElementById('city-name');
-const favIcon = document.getElementById('fav')
+const addFavBtn = document.getElementById('fav')
+const favBtn = document.getElementById('favBtn')
+
 
 form.addEventListener('submit', getWeather)
 
+// this function shows buttons adn icons that are hidden 
 function showImage(){
     weatherIcon.style.display = 'block'
-    favIcon.style.display = 'inline'
+    addFavBtn.style.display = 'inline'
 
 }
-
+// this function grabs the info form the api and sh
 async function getWeather(event){
     event.preventDefault();
     const city = cityInput.value;
@@ -54,13 +57,16 @@ function displayWeather(data){
 }
 const favCities = []
 let citiesId = ""
-favIcon.addEventListener('click', favCity)
+addFavBtn.addEventListener('click', favCity)
+
+
+
 async function favCity() {
     const city = cityInput.value;
 
     favCities.push(city)
 
-
+// post data to a storage api
 const options = {
   method: 'POST',
   url: 'https://json-storage-api.p.rapidapi.com/datalake',
@@ -104,7 +110,7 @@ try {
 	const response = await axios.request(options);
 	console.log(response.data);
     citiesId = response.data.Object.Identifier
-        // getFav(response.data.Object.Identifier);
+    getFav(response.data.Object.Identifier);
 } catch (error) {
 	console.error(error);
 }
@@ -113,8 +119,9 @@ try {
 
 // const id = '661f55a1bbc7bdba5b422e39';
 
-async function getFav(id){
 
+// Get data but im not sure how to manipulate it from here
+async function getFav(id){
 const options = {
     method: 'POST',
     url: 'https://json-storage-api.p.rapidapi.com/datalake',
@@ -141,22 +148,13 @@ const options = {
         FilterItem: {
           '@type': 'DataLakeItem',
           Identifier: id,
-        //   Creator: {
-        //     '@type': 'UserAccount',
-            // Identifier: id
-
-        //   },
-        //   Name: 'Weather App',
-        //   About: {
-        //     '@type': 'Cities'
-        //   }
         }
       }
     }
   };
   try {
 	const response = await axios.request(options);
-	console.log("Get fav", response.data);
+	console.log("Get fav");
 } catch (error) {
 	console.error(error);
 }
